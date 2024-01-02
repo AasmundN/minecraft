@@ -7,10 +7,14 @@ enable_testing()
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/build)
 set(SOURCES
    src/main.c
-   src/test.c
+   src/app.c
 )
 
+find_package(SDL2 REQUIRED COMPONENTS SDL2)
+
 add_executable(${PROJECT_NAME} ${SOURCES})
+
+target_link_libraries(${PROJECT_NAME} PRIVATE SDL2::SDL2)
 
 target_include_directories(${PROJECT_NAME} PRIVATE include)
 
