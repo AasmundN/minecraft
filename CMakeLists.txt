@@ -8,6 +8,7 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/build)
 set(SOURCES
    src/main.c
    src/app.c
+   src/color.c
 )
 
 find_package(SDL2 REQUIRED COMPONENTS SDL2)

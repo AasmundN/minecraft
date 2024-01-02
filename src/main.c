@@ -21,6 +21,10 @@ int main(int argc, char *argv[]) {
    */
   while (app->state == RUNNING) {
     handleEvents(app);
+
+    clearFrame(app);
+
+    drawFrame(app);
   }
 
   cleanup(app);

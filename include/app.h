@@ -41,4 +41,14 @@ void cleanup(App *app);
  */
 void handleEvents(App *app);
 
+/*
+ * Clear renderer
+ */
+void clearFrame(App *app);
+
+/*
+ * Draw new frame
+ */
+void drawFrame(App *app);
+
 #endif

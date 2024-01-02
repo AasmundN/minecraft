@@ -1,4 +1,5 @@
 #include "app.h"
+#include "color.h"
 
 #include <SDL.h>
 #include <stdbool.h>
@@ -35,4 +36,13 @@ void handleEvents(App *app) {
       break;
     }
   }
+}
+
+void clearFrame(App *app) {
+  setRenderColor(app, color[RED]);
+  SDL_RenderClear(app->renderer);
+}
+
+void drawFrame(App *app) {
+  SDL_RenderPresent(app->renderer);
 }
