@@ -8,7 +8,7 @@
          "type": "lldb",
          "request": "launch",
          "name": "Debug",
-         "program": "${workspaceFolder}/build/minecraft",
+         "program": "${workspaceFolder}/build/build/minecraft",
          "args": [],
          "cwd": "${workspaceFolder}"
       }
