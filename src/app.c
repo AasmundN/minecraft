@@ -1,4 +1,5 @@
 #include "app.h"
+#include "block.h"
 #include "color.h"
 
 #include <SDL.h>
@@ -6,7 +7,7 @@
 #include <stdio.h>
 
 void initSDL(App *app, int width, int height) {
-  if (SDL_Init(SDL_INIT_EVERYTHING) < 0) {
+  if (SDL_Init(SDL_INIT_VIDEO) < 0) {
     printf("Could not initialize SDL: %s\n", SDL_GetError());
     exit(1);
   }
@@ -44,5 +45,11 @@ void clearFrame(App *app) {
 }
 
 void drawFrame(App *app) {
+  Block block = {GRASS, {0, 0, 0}};
+  renderBlock(app, &block);
+
+  Block block2 = {AIR, {2, 1, 0}};
+  renderBlock(app, &block2);
+
   SDL_RenderPresent(app->renderer);
 }

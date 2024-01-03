@@ -9,6 +9,8 @@ set(SOURCES
    src/main.c
    src/app.c
    src/color.c
+   src/block.c
+   src/matrix.c
 )
 
 find_package(SDL2 REQUIRED COMPONENTS SDL2)
