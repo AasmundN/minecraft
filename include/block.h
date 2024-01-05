@@ -6,7 +6,7 @@
 /*
  * Dimension of one block
  */
-#define BLOCK_SIZE 50
+#define BLOCK_SIZE 10
 
 /*
  * Axis directions
@@ -73,8 +73,8 @@ typedef struct {
  */
 void getFaces(Block *block, Face *faces);
 
+/*
+ * */
 void renderBlock(App *app, Block *block);
-
-void renderFace(App *app, Face *face, int index);
 
 #endif

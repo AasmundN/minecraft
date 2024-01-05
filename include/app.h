@@ -17,12 +17,19 @@ typedef enum {
   STOPPED
 } State;
 
+/*
+ * Orientation in three dimenasions
+ */
+typedef struct {
+  float angleX, angleY, angleZ;
+} Orientation;
+
 typedef struct {
   struct SDL_Renderer *renderer;
   struct SDL_Window *window;
   State state;
   int width, height;
-  float angleX, angleY, angleZ;
+  Orientation orientation;
 } App;
 
 /*

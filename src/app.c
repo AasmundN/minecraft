@@ -45,10 +45,11 @@ void clearFrame(App *app) {
 }
 
 void drawFrame(App *app) {
+  // some temporary blocks for demonstration
   Block block = {GRASS, {0, 0, 0}};
   renderBlock(app, &block);
 
-  Block block2 = {AIR, {2, 1, 0}};
+  Block block2 = {GRASS, {2, 3, 0}};
   renderBlock(app, &block2);
 
   SDL_RenderPresent(app->renderer);

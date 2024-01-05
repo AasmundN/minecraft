@@ -12,7 +12,7 @@ int main(int argc, char *argv[]) {
   /*
    * Create app instance
    */
-  App app = {NULL, NULL, RUNNING, WINDOW_WIDTH, WINDOW_HEIGHT, 10, 0, 0};
+  App app = {NULL, NULL, RUNNING, WINDOW_WIDTH, WINDOW_HEIGHT, {0, 0, 0}};
 
   initSDL(&app, WINDOW_WIDTH, WINDOW_HEIGHT);
 
@@ -22,10 +22,11 @@ int main(int argc, char *argv[]) {
   while (app.state == RUNNING) {
     float frameStart = SDL_GetTicks();
 
-    handleEvents(&app);
+    // increment orientation
+    app.orientation.angleX += 1;
+    app.orientation.angleY += 0.1;
 
-    app.angleX += 1;
-    app.angleY += 2.3;
+    handleEvents(&app);
 
     clearFrame(&app);
 

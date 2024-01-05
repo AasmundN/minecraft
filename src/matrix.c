@@ -1,9 +1,9 @@
 #include "matrix.h"
+#include "app.h"
 
 #include <math.h>
 
 #define PI 3.14159
-#define FAR_PLANE 10000
 
 float degreesToRad(float degrees) {
   return (PI * degrees) / 180;
@@ -13,32 +13,36 @@ void perspectiveTransform(Vertex *input, Vertex *output, int width, int height) 
   /*
    * Define constants
    */
-  const float FOV = 50;
-  const float aspectRatio = (float)width / (float)height;
-  const float a = tan(degreesToRad(FOV / 2));
-  const float w = 1;
-
-  /*
-   * Calculate near clipping plane distance
-   */
-  const float n = (float)height / (2 * a);
+  const float theta = 20;
+  const float zFar = 1000;
+  const float zNear = 0.1;
+  const float aspectRatio = (float)height / (float)width;
+  const float fieldOfView = 1 / tan(degreesToRad(theta / 2));
+  const float q = zFar / (zFar - zNear);
 
   /*
    * Define perspective projection matrix
    */
   const float perspectiveMatrix[4][4] = {
-      {1 / (aspectRatio * a), 0, 0, 0},
-      {0, 1 / a, 0, 0},
-      {0, 0, FAR_PLANE / (FAR_PLANE - n), -FAR_PLANE * n / (FAR_PLANE - n)},
+      {aspectRatio * fieldOfView, 0, 0, 0},
+      {0, fieldOfView, 0, 0},
+      {0, 0, q, -zNear * q},
       {0, 0, 1, 0},
   };
 
   /*
    * Perform matrix multiplication
    */
-  output->x = perspectiveMatrix[0][0] * input->x + perspectiveMatrix[0][1] * input->y + perspectiveMatrix[0][2] * input->z + perspectiveMatrix[0][3] * w;
-  output->y = perspectiveMatrix[1][0] * input->x + perspectiveMatrix[1][1] * input->y + perspectiveMatrix[1][2] * input->z + perspectiveMatrix[1][3] * w;
-  output->z = perspectiveMatrix[2][0] * input->x + perspectiveMatrix[2][1] * input->y + perspectiveMatrix[2][2] * input->z + perspectiveMatrix[2][3] * w;
+  output->x = input->x * perspectiveMatrix[0][0];
+  output->y = input->y * perspectiveMatrix[1][1];
+  output->z = input->z * perspectiveMatrix[2][2] + perspectiveMatrix[2][3];
+  const float w = input->z * perspectiveMatrix[3][2];
+
+  if (w != 0) {
+    output->x /= w;
+    output->y /= w;
+    output->z /= w;
+  }
 }
 
 void rotateX(Vertex *input, Vertex *output, float angle) {
@@ -55,4 +59,19 @@ void rotateY(Vertex *input, Vertex *output, float angle) {
   output->x = input->x * cos(angleRad) + input->z * sin(angleRad);
   output->y = input->y;
   output->z = -input->x * sin(angleRad) + input->z * cos(angleRad);
+}
+
+void rotateZ(Vertex *input, Vertex *output, float angle) {
+  float angleRad = degreesToRad(angle);
+
+  output->x = input->x * cos(angleRad) - input->y * sin(angleRad);
+  output->y = input->x * sin(angleRad) + input->y * cos(angleRad);
+  output->z = input->z;
+}
+
+void rotateVector(Vertex *input, Vertex *output, Orientation *orientation) {
+  Vertex temp1, temp2;
+  rotateX(input, &temp1, orientation->angleX);
+  rotateY(&temp1, &temp2, orientation->angleY);
+  rotateZ(&temp2, output, orientation->angleZ);
 }

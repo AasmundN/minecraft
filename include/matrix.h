@@ -12,8 +12,10 @@
  */
 void perspectiveTransform(Vertex *input, Vertex *output, int width, int height);
 
-void rotateX(Vertex *input, Vertex *output, float angle);
-
-void rotateY(Vertex *input, Vertex *output, float angle);
+/*
+ * Rotate vector in three dimensions
+ * orientation: the angles to rotate to
+ */
+void rotateVector(Vertex *input, Vertex *output, Orientation *orientation);
 
 #endif
