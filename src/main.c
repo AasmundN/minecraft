@@ -9,7 +9,7 @@
 #define FPS 30
 
 int main(int argc, char *argv[]) {
-  /*2
+  /*
    * Create app instance
    */
   App app = {NULL, NULL, RUNNING, WINDOW_WIDTH, WINDOW_HEIGHT};
