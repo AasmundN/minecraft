@@ -33,7 +33,7 @@ void vectorCrossProduct(Vector3d *a, Vector3d *b, Vector3d *output);
  * a: first opearand
  * b: second operand
  */
-float vectorDotProct(Vector3d *a, Vector3d *b);
+float vectorDotProduct(Vector3d *a, Vector3d *b);
 
 /*
  * Subract vector a from vector b

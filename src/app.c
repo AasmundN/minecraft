@@ -130,7 +130,7 @@ void movePlayer(App *app) {
 
 void drawFrame(App *app) {
   // some temporary blocks for demonstration
-  Block block = {GRASS, {0, 0, 0}};
+  Block block = {GRASS, {0, 1, 0}};
   renderBlock(app, &block);
 
   SDL_RenderPresent(app->renderer);

@@ -82,7 +82,7 @@ void vectorCrossProduct(Vector3d *a, Vector3d *b, Vector3d *output) {
   output->z = a->x * b->y - a->y * b->x;
 }
 
-float vectorDotProct(Vector3d *a, Vector3d *b) {
+float vectorDotProduct(Vector3d *a, Vector3d *b) {
   return a->x * b->x + a->y * b->y + a->z * b->z;
 }
 

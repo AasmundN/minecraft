@@ -152,8 +152,7 @@ void renderFace(App *app, Face *face, int index) {
     // rotate vertex
     rotateVector(&translatedVertex, &rotatedVertex, &app->player.orientation);
 
-    duplicateVector(&rotatedVertex, &vertices[i]);
-
+    // temporary translate
     rotatedVertex.z += 150;
 
     perspectiveTransform(&rotatedVertex, &projectedVertex, app->width, app->height);
@@ -174,9 +173,12 @@ void renderFace(App *app, Face *face, int index) {
 
     verticesProjected[i].position.x = projectedVertex.x;
     verticesProjected[i].position.y = projectedVertex.y;
-  }
 
-  Vector3d camera = {0, 0, 1};
+    /*
+     * Save 3d vertices
+     */
+    duplicateVector(&rotatedVertex, &vertices[i]);
+  }
 
   Vector3d a, b, faceNormal;
 
@@ -185,7 +187,10 @@ void renderFace(App *app, Face *face, int index) {
 
   vectorCrossProduct(&a, &b, &faceNormal);
 
-  if (vectorDotProct(&faceNormal, &camera) > 0) return;
+  /*
+   * Only render faces we can actually see
+   */
+  if (vectorDotProduct(&faceNormal, &vertices[0]) > 0) return;
 
   /*
    * Vertex rendering order
