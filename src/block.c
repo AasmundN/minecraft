@@ -5,146 +5,164 @@
 
 void getFaces(Block *block, Face *faces) {
   /*
-   * Front face
+   * FRONT_FACE face
    */
 
-  faces[FRONT].vertices[0].x = block->pos.x * BLOCK_SIZE;
-  faces[FRONT].vertices[0].y = block->pos.y * BLOCK_SIZE + BLOCK_SIZE;
-  faces[FRONT].vertices[0].z = block->pos.z * BLOCK_SIZE;
+  faces[FRONT_FACE].vertices[0].x = block->pos.x * BLOCK_SIZE;
+  faces[FRONT_FACE].vertices[0].y = block->pos.y * BLOCK_SIZE + BLOCK_SIZE;
+  faces[FRONT_FACE].vertices[0].z = block->pos.z * BLOCK_SIZE;
 
-  faces[FRONT].vertices[1].x = block->pos.x * BLOCK_SIZE + BLOCK_SIZE;
-  faces[FRONT].vertices[1].y = block->pos.y * BLOCK_SIZE + BLOCK_SIZE;
-  faces[FRONT].vertices[1].z = block->pos.z * BLOCK_SIZE;
+  faces[FRONT_FACE].vertices[1].x = block->pos.x * BLOCK_SIZE + BLOCK_SIZE;
+  faces[FRONT_FACE].vertices[1].y = block->pos.y * BLOCK_SIZE + BLOCK_SIZE;
+  faces[FRONT_FACE].vertices[1].z = block->pos.z * BLOCK_SIZE;
 
-  faces[FRONT].vertices[2].x = block->pos.x * BLOCK_SIZE + BLOCK_SIZE;
-  faces[FRONT].vertices[2].y = block->pos.y * BLOCK_SIZE;
-  faces[FRONT].vertices[2].z = block->pos.z * BLOCK_SIZE;
+  faces[FRONT_FACE].vertices[2].x = block->pos.x * BLOCK_SIZE + BLOCK_SIZE;
+  faces[FRONT_FACE].vertices[2].y = block->pos.y * BLOCK_SIZE;
+  faces[FRONT_FACE].vertices[2].z = block->pos.z * BLOCK_SIZE;
 
-  faces[FRONT].vertices[3].x = block->pos.x * BLOCK_SIZE;
-  faces[FRONT].vertices[3].y = block->pos.y * BLOCK_SIZE;
-  faces[FRONT].vertices[3].z = block->pos.z * BLOCK_SIZE;
+  faces[FRONT_FACE].vertices[3].x = block->pos.x * BLOCK_SIZE;
+  faces[FRONT_FACE].vertices[3].y = block->pos.y * BLOCK_SIZE;
+  faces[FRONT_FACE].vertices[3].z = block->pos.z * BLOCK_SIZE;
 
   /*
-   * Right face
+   * RIGHT_FACE face
    */
 
-  faces[RIGHT].vertices[0].x = block->pos.x * BLOCK_SIZE + BLOCK_SIZE;
-  faces[RIGHT].vertices[0].y = block->pos.y * BLOCK_SIZE + BLOCK_SIZE;
-  faces[RIGHT].vertices[0].z = block->pos.z * BLOCK_SIZE;
+  faces[RIGHT_FACE].vertices[0].x = block->pos.x * BLOCK_SIZE + BLOCK_SIZE;
+  faces[RIGHT_FACE].vertices[0].y = block->pos.y * BLOCK_SIZE + BLOCK_SIZE;
+  faces[RIGHT_FACE].vertices[0].z = block->pos.z * BLOCK_SIZE;
 
-  faces[RIGHT].vertices[1].x = block->pos.x * BLOCK_SIZE + BLOCK_SIZE;
-  faces[RIGHT].vertices[1].y = block->pos.y * BLOCK_SIZE + BLOCK_SIZE;
-  faces[RIGHT].vertices[1].z = block->pos.z * BLOCK_SIZE + BLOCK_SIZE;
+  faces[RIGHT_FACE].vertices[1].x = block->pos.x * BLOCK_SIZE + BLOCK_SIZE;
+  faces[RIGHT_FACE].vertices[1].y = block->pos.y * BLOCK_SIZE + BLOCK_SIZE;
+  faces[RIGHT_FACE].vertices[1].z = block->pos.z * BLOCK_SIZE + BLOCK_SIZE;
 
-  faces[RIGHT].vertices[2].x = block->pos.x * BLOCK_SIZE + BLOCK_SIZE;
-  faces[RIGHT].vertices[2].y = block->pos.y * BLOCK_SIZE;
-  faces[RIGHT].vertices[2].z = block->pos.z * BLOCK_SIZE + BLOCK_SIZE;
+  faces[RIGHT_FACE].vertices[2].x = block->pos.x * BLOCK_SIZE + BLOCK_SIZE;
+  faces[RIGHT_FACE].vertices[2].y = block->pos.y * BLOCK_SIZE;
+  faces[RIGHT_FACE].vertices[2].z = block->pos.z * BLOCK_SIZE + BLOCK_SIZE;
 
-  faces[RIGHT].vertices[3].x = block->pos.x * BLOCK_SIZE + BLOCK_SIZE;
-  faces[RIGHT].vertices[3].y = block->pos.y * BLOCK_SIZE;
-  faces[RIGHT].vertices[3].z = block->pos.z * BLOCK_SIZE;
+  faces[RIGHT_FACE].vertices[3].x = block->pos.x * BLOCK_SIZE + BLOCK_SIZE;
+  faces[RIGHT_FACE].vertices[3].y = block->pos.y * BLOCK_SIZE;
+  faces[RIGHT_FACE].vertices[3].z = block->pos.z * BLOCK_SIZE;
 
   /*
-   * Back face
+   * BACK_FACE face
    */
 
-  faces[BACK].vertices[0].x = block->pos.x * BLOCK_SIZE + BLOCK_SIZE;
-  faces[BACK].vertices[0].y = block->pos.y * BLOCK_SIZE + BLOCK_SIZE;
-  faces[BACK].vertices[0].z = block->pos.z * BLOCK_SIZE + BLOCK_SIZE;
+  faces[BACK_FACE].vertices[0].x = block->pos.x * BLOCK_SIZE + BLOCK_SIZE;
+  faces[BACK_FACE].vertices[0].y = block->pos.y * BLOCK_SIZE + BLOCK_SIZE;
+  faces[BACK_FACE].vertices[0].z = block->pos.z * BLOCK_SIZE + BLOCK_SIZE;
 
-  faces[BACK].vertices[1].x = block->pos.x * BLOCK_SIZE;
-  faces[BACK].vertices[1].y = block->pos.y * BLOCK_SIZE + BLOCK_SIZE;
-  faces[BACK].vertices[1].z = block->pos.z * BLOCK_SIZE + BLOCK_SIZE;
+  faces[BACK_FACE].vertices[1].x = block->pos.x * BLOCK_SIZE;
+  faces[BACK_FACE].vertices[1].y = block->pos.y * BLOCK_SIZE + BLOCK_SIZE;
+  faces[BACK_FACE].vertices[1].z = block->pos.z * BLOCK_SIZE + BLOCK_SIZE;
 
-  faces[BACK].vertices[2].x = block->pos.x * BLOCK_SIZE;
-  faces[BACK].vertices[2].y = block->pos.y * BLOCK_SIZE;
-  faces[BACK].vertices[2].z = block->pos.z * BLOCK_SIZE + BLOCK_SIZE;
+  faces[BACK_FACE].vertices[2].x = block->pos.x * BLOCK_SIZE;
+  faces[BACK_FACE].vertices[2].y = block->pos.y * BLOCK_SIZE;
+  faces[BACK_FACE].vertices[2].z = block->pos.z * BLOCK_SIZE + BLOCK_SIZE;
 
-  faces[BACK].vertices[3].x = block->pos.x * BLOCK_SIZE + BLOCK_SIZE;
-  faces[BACK].vertices[3].y = block->pos.y * BLOCK_SIZE;
-  faces[BACK].vertices[3].z = block->pos.z * BLOCK_SIZE + BLOCK_SIZE;
+  faces[BACK_FACE].vertices[3].x = block->pos.x * BLOCK_SIZE + BLOCK_SIZE;
+  faces[BACK_FACE].vertices[3].y = block->pos.y * BLOCK_SIZE;
+  faces[BACK_FACE].vertices[3].z = block->pos.z * BLOCK_SIZE + BLOCK_SIZE;
 
   /*
-   * Left face
+   * LEFT_FACE face
    */
 
-  faces[LEFT].vertices[0].x = block->pos.x * BLOCK_SIZE;
-  faces[LEFT].vertices[0].y = block->pos.y * BLOCK_SIZE + BLOCK_SIZE;
-  faces[LEFT].vertices[0].z = block->pos.z * BLOCK_SIZE + BLOCK_SIZE;
+  faces[LEFT_FACE].vertices[0].x = block->pos.x * BLOCK_SIZE;
+  faces[LEFT_FACE].vertices[0].y = block->pos.y * BLOCK_SIZE + BLOCK_SIZE;
+  faces[LEFT_FACE].vertices[0].z = block->pos.z * BLOCK_SIZE + BLOCK_SIZE;
 
-  faces[LEFT].vertices[1].x = block->pos.x * BLOCK_SIZE;
-  faces[LEFT].vertices[1].y = block->pos.y * BLOCK_SIZE + BLOCK_SIZE;
-  faces[LEFT].vertices[1].z = block->pos.z * BLOCK_SIZE;
+  faces[LEFT_FACE].vertices[1].x = block->pos.x * BLOCK_SIZE;
+  faces[LEFT_FACE].vertices[1].y = block->pos.y * BLOCK_SIZE + BLOCK_SIZE;
+  faces[LEFT_FACE].vertices[1].z = block->pos.z * BLOCK_SIZE;
 
-  faces[LEFT].vertices[2].x = block->pos.x * BLOCK_SIZE;
-  faces[LEFT].vertices[2].y = block->pos.y * BLOCK_SIZE;
-  faces[LEFT].vertices[2].z = block->pos.z * BLOCK_SIZE;
+  faces[LEFT_FACE].vertices[2].x = block->pos.x * BLOCK_SIZE;
+  faces[LEFT_FACE].vertices[2].y = block->pos.y * BLOCK_SIZE;
+  faces[LEFT_FACE].vertices[2].z = block->pos.z * BLOCK_SIZE;
 
-  faces[LEFT].vertices[3].x = block->pos.x * BLOCK_SIZE;
-  faces[LEFT].vertices[3].y = block->pos.y * BLOCK_SIZE;
-  faces[LEFT].vertices[3].z = block->pos.z * BLOCK_SIZE + BLOCK_SIZE;
+  faces[LEFT_FACE].vertices[3].x = block->pos.x * BLOCK_SIZE;
+  faces[LEFT_FACE].vertices[3].y = block->pos.y * BLOCK_SIZE;
+  faces[LEFT_FACE].vertices[3].z = block->pos.z * BLOCK_SIZE + BLOCK_SIZE;
 
   /*
-   * Top face
+   * TOP_FACE face
    */
 
-  faces[TOP].vertices[0].x = block->pos.x * BLOCK_SIZE;
-  faces[TOP].vertices[0].y = block->pos.y * BLOCK_SIZE + BLOCK_SIZE;
-  faces[TOP].vertices[0].z = block->pos.z * BLOCK_SIZE + BLOCK_SIZE;
+  faces[TOP_FACE].vertices[0].x = block->pos.x * BLOCK_SIZE;
+  faces[TOP_FACE].vertices[0].y = block->pos.y * BLOCK_SIZE + BLOCK_SIZE;
+  faces[TOP_FACE].vertices[0].z = block->pos.z * BLOCK_SIZE + BLOCK_SIZE;
 
-  faces[TOP].vertices[1].x = block->pos.x * BLOCK_SIZE + BLOCK_SIZE;
-  faces[TOP].vertices[1].y = block->pos.y * BLOCK_SIZE + BLOCK_SIZE;
-  faces[TOP].vertices[1].z = block->pos.z * BLOCK_SIZE + BLOCK_SIZE;
+  faces[TOP_FACE].vertices[1].x = block->pos.x * BLOCK_SIZE + BLOCK_SIZE;
+  faces[TOP_FACE].vertices[1].y = block->pos.y * BLOCK_SIZE + BLOCK_SIZE;
+  faces[TOP_FACE].vertices[1].z = block->pos.z * BLOCK_SIZE + BLOCK_SIZE;
 
-  faces[TOP].vertices[2].x = block->pos.x * BLOCK_SIZE + BLOCK_SIZE;
-  faces[TOP].vertices[2].y = block->pos.y * BLOCK_SIZE + BLOCK_SIZE;
-  faces[TOP].vertices[2].z = block->pos.z * BLOCK_SIZE;
+  faces[TOP_FACE].vertices[2].x = block->pos.x * BLOCK_SIZE + BLOCK_SIZE;
+  faces[TOP_FACE].vertices[2].y = block->pos.y * BLOCK_SIZE + BLOCK_SIZE;
+  faces[TOP_FACE].vertices[2].z = block->pos.z * BLOCK_SIZE;
 
-  faces[TOP].vertices[3].x = block->pos.x * BLOCK_SIZE;
-  faces[TOP].vertices[3].y = block->pos.y * BLOCK_SIZE + BLOCK_SIZE;
-  faces[TOP].vertices[3].z = block->pos.z * BLOCK_SIZE;
+  faces[TOP_FACE].vertices[3].x = block->pos.x * BLOCK_SIZE;
+  faces[TOP_FACE].vertices[3].y = block->pos.y * BLOCK_SIZE + BLOCK_SIZE;
+  faces[TOP_FACE].vertices[3].z = block->pos.z * BLOCK_SIZE;
 
   /*
-   * Bottom face
+   * BOTTOM_FACE face
    */
 
-  faces[BOTTOM].vertices[0].x = block->pos.x * BLOCK_SIZE;
-  faces[BOTTOM].vertices[0].y = block->pos.y * BLOCK_SIZE;
-  faces[BOTTOM].vertices[0].z = block->pos.z * BLOCK_SIZE;
+  faces[BOTTOM_FACE].vertices[0].x = block->pos.x * BLOCK_SIZE;
+  faces[BOTTOM_FACE].vertices[0].y = block->pos.y * BLOCK_SIZE;
+  faces[BOTTOM_FACE].vertices[0].z = block->pos.z * BLOCK_SIZE;
 
-  faces[BOTTOM].vertices[1].x = block->pos.x * BLOCK_SIZE + BLOCK_SIZE;
-  faces[BOTTOM].vertices[1].y = block->pos.y * BLOCK_SIZE;
-  faces[BOTTOM].vertices[1].z = block->pos.z * BLOCK_SIZE;
+  faces[BOTTOM_FACE].vertices[1].x = block->pos.x * BLOCK_SIZE + BLOCK_SIZE;
+  faces[BOTTOM_FACE].vertices[1].y = block->pos.y * BLOCK_SIZE;
+  faces[BOTTOM_FACE].vertices[1].z = block->pos.z * BLOCK_SIZE;
 
-  faces[BOTTOM].vertices[2].x = block->pos.x * BLOCK_SIZE + BLOCK_SIZE;
-  faces[BOTTOM].vertices[2].y = block->pos.y * BLOCK_SIZE;
-  faces[BOTTOM].vertices[2].z = block->pos.z * BLOCK_SIZE + BLOCK_SIZE;
+  faces[BOTTOM_FACE].vertices[2].x = block->pos.x * BLOCK_SIZE + BLOCK_SIZE;
+  faces[BOTTOM_FACE].vertices[2].y = block->pos.y * BLOCK_SIZE;
+  faces[BOTTOM_FACE].vertices[2].z = block->pos.z * BLOCK_SIZE + BLOCK_SIZE;
 
-  faces[BOTTOM].vertices[3].x = block->pos.x * BLOCK_SIZE;
-  faces[BOTTOM].vertices[3].y = block->pos.y * BLOCK_SIZE;
-  faces[BOTTOM].vertices[3].z = block->pos.z * BLOCK_SIZE + BLOCK_SIZE;
+  faces[BOTTOM_FACE].vertices[3].x = block->pos.x * BLOCK_SIZE;
+  faces[BOTTOM_FACE].vertices[3].y = block->pos.y * BLOCK_SIZE;
+  faces[BOTTOM_FACE].vertices[3].z = block->pos.z * BLOCK_SIZE + BLOCK_SIZE;
+}
+
+/*
+ * Draw wire frame outline of a cube face
+ */
+void drawWireFrame(SDL_Renderer *renderer, SDL_Vertex vertices[4]) {
+  SDL_SetRenderDrawColor(renderer, 0xff, 0xff, 0xff, 0xff);
+  SDL_RenderDrawLine(renderer, vertices[0].position.x, vertices[0].position.y, vertices[1].position.x, vertices[1].position.y);
+  SDL_RenderDrawLine(renderer, vertices[1].position.x, vertices[1].position.y, vertices[2].position.x, vertices[2].position.y);
+  SDL_RenderDrawLine(renderer, vertices[2].position.x, vertices[2].position.y, vertices[3].position.x, vertices[3].position.y);
+  SDL_RenderDrawLine(renderer, vertices[3].position.x, vertices[3].position.y, vertices[0].position.x, vertices[0].position.y);
 }
 
 void renderFace(App *app, Face *face, int index) {
-  SDL_Vertex vertices[4];
+  SDL_Vertex verticesProjected[4];
+  Vector3d vertices[4];
 
   for (int i = 0; i < 4; i++) {
     // intermediates
-    Vertex rotatedVertex, projectedVertex;
-
-    // rotate vertex
-    rotateVector(&face->vertices[i], &rotatedVertex, &app->orientation);
+    Vector3d rotatedVertex, translatedVertex, projectedVertex;
 
     // translate coordinate system so that we can see the rotation
-    rotatedVertex.z += 200;
+    translatedVertex.x = face->vertices[i].x + app->player.x;
+    translatedVertex.y = face->vertices[i].y + app->player.y;
+    translatedVertex.z = face->vertices[i].z + app->player.z;
+
+    // rotate vertex
+    rotateVector(&translatedVertex, &rotatedVertex, &app->player.orientation);
+
+    duplicateVector(&rotatedVertex, &vertices[i]);
+
+    rotatedVertex.z += 150;
 
     perspectiveTransform(&rotatedVertex, &projectedVertex, app->width, app->height);
 
     // temporary set color of face
-    vertices[i].color.r = 30 + 20 * index;
-    vertices[i].color.g = 0;
-    vertices[i].color.b = 0;
-    vertices[i].color.a = 0xff;
+    verticesProjected[i].color.r = 80 + 5 * index;
+    verticesProjected[i].color.g = 0;
+    verticesProjected[i].color.b = 0;
+    verticesProjected[i].color.a = 0xff;
 
     /*
      * Scale projected vertex to screen
@@ -154,9 +172,20 @@ void renderFace(App *app, Face *face, int index) {
     projectedVertex.x *= 0.5 * app->width;
     projectedVertex.y *= 0.5 * app->height;
 
-    vertices[i].position.x = projectedVertex.x;
-    vertices[i].position.y = projectedVertex.y;
+    verticesProjected[i].position.x = projectedVertex.x;
+    verticesProjected[i].position.y = projectedVertex.y;
   }
+
+  Vector3d camera = {0, 0, 1};
+
+  Vector3d a, b, faceNormal;
+
+  vectorSubtract(&vertices[1], &vertices[0], &a);
+  vectorSubtract(&vertices[3], &vertices[0], &b);
+
+  vectorCrossProduct(&a, &b, &faceNormal);
+
+  if (vectorDotProct(&faceNormal, &camera) > 0) return;
 
   /*
    * Vertex rendering order
@@ -164,7 +193,8 @@ void renderFace(App *app, Face *face, int index) {
    */
   const int indices[] = {0, 1, 3, 3, 1, 2};
 
-  SDL_RenderGeometry(app->renderer, NULL, vertices, 4, indices, 6);
+  // SDL_RenderGeometry(app->renderer, NULL, verticesProjected, 4, indices, 6);
+  drawWireFrame(app->renderer, verticesProjected);
 }
 
 void renderBlock(App *app, Block *block) {

@@ -4,15 +4,15 @@
 #include <SDL.h>
 #include <stdbool.h>
 
-#define WINDOW_WIDTH 800
-#define WINDOW_HEIGHT 600
-#define FPS 60
+#define WINDOW_WIDTH 1280
+#define WINDOW_HEIGHT 720
+#define FPS 30
 
 int main(int argc, char *argv[]) {
-  /*
+  /*2
    * Create app instance
    */
-  App app = {NULL, NULL, RUNNING, WINDOW_WIDTH, WINDOW_HEIGHT, {0, 0, 0}};
+  App app = {NULL, NULL, RUNNING, WINDOW_WIDTH, WINDOW_HEIGHT};
 
   initSDL(&app, WINDOW_WIDTH, WINDOW_HEIGHT);
 
@@ -22,13 +22,16 @@ int main(int argc, char *argv[]) {
   while (app.state == RUNNING) {
     float frameStart = SDL_GetTicks();
 
-    // increment orientation
-    app.orientation.angleX += 1;
-    app.orientation.angleY += 0.1;
+    SDL_GetWindowSize(app.window, &app.width, &app.height);
+
+    app.player.orientation.angleX += 1;
+    app.player.orientation.angleY += 2;
 
     handleEvents(&app);
 
     clearFrame(&app);
+
+    movePlayer(&app);
 
     drawFrame(&app);
 

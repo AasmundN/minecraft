@@ -3,6 +3,8 @@
 
 #include <stdbool.h>
 
+#define MOVE_SPEED 1
+
 /*
  * Forward declaration of SDL structs
  */
@@ -24,12 +26,30 @@ typedef struct {
   float angleX, angleY, angleZ;
 } Orientation;
 
+typedef enum {
+  UP,
+  DOWN,
+  FORWARD,
+  BACKWARD,
+  RIGHT,
+  LEFT
+} Direction;
+
+/*
+ * Player struct
+ */
+typedef struct {
+  Orientation orientation;
+  bool movementDirections[6];
+  float x, y, z;
+} Player;
+
 typedef struct {
   struct SDL_Renderer *renderer;
   struct SDL_Window *window;
   State state;
   int width, height;
-  Orientation orientation;
+  Player player;
 } App;
 
 /*
@@ -54,6 +74,11 @@ void handleEvents(App *app);
  * Clear renderer
  */
 void clearFrame(App *app);
+
+/*
+ * Move player
+ */
+void movePlayer(App *app);
 
 /*
  * Draw new frame

@@ -29,26 +29,26 @@ typedef enum {
  * Face types
  */
 typedef enum {
-  FRONT,
-  RIGHT,
-  BACK,
-  LEFT,
-  TOP,
-  BOTTOM
+  FRONT_FACE,
+  RIGHT_FACE,
+  BACK_FACE,
+  LEFT_FACE,
+  TOP_FACE,
+  BOTTOM_FACE
 } Face_t;
 
 /*
- * Vertex position struct
+ * Vector3d position struct
  */
 typedef struct {
   float x, y, z;
-} Vertex;
+} Vector3d;
 
 /*
  *Face of block
  */
 typedef struct {
-  Vertex vertices[4];
+  Vector3d vertices[4];
 } Face;
 
 /*
