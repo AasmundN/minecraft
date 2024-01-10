@@ -1,10 +1,10 @@
 cmake_minimum_required(VERSION 3.5.0)
-project(minecraft VERSION 0.1.0 LANGUAGES C CXX)
+project(voxelEngine VERSION 0.1.0 LANGUAGES C CXX)
 
 include(CTest)
 enable_testing()
 
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/build)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
 set(SOURCES
    src/main.c
    src/app.c

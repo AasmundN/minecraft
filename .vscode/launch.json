@@ -8,7 +8,7 @@
          "type": "lldb",
          "request": "launch",
          "name": "Debug",
-         "program": "${workspaceFolder}/build/build/minecraft",
+         "program": "${workspaceFolder}/build/build/voxelEngine",
          "args": [],
          "cwd": "${workspaceFolder}"
       }

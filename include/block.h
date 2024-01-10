@@ -52,18 +52,11 @@ typedef struct {
 } Face;
 
 /*
- * Block position in chunk
- */
-typedef struct {
-  int x, y, z;
-} ChunkPos;
-
-/*
  * Block struct
  */
 typedef struct {
   Block_t type;
-  ChunkPos pos;
+  Vector3d pos;
 } Block;
 
 /*

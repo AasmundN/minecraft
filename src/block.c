@@ -198,8 +198,8 @@ void renderFace(App *app, Face *face, int index) {
    */
   const int indices[] = {0, 1, 3, 3, 1, 2};
 
-  // SDL_RenderGeometry(app->renderer, NULL, verticesProjected, 4, indices, 6);
-  drawWireFrame(app->renderer, verticesProjected);
+  SDL_RenderGeometry(app->renderer, NULL, verticesProjected, 4, indices, 6);
+  // drawWireFrame(app->renderer, verticesProjected);
 }
 
 void renderBlock(App *app, Block *block) {
