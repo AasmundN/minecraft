@@ -16,6 +16,8 @@ void initSDL(App *app, int width, int height) {
 
   SDL_CreateWindowAndRenderer(width, height, SDL_WINDOW_RESIZABLE, &app->window, &app->renderer);
 
+  SDL_SetWindowTitle(app->window, "Voxel engine");
+
   // SDL_SetRelativeMouseMode(SDL_TRUE);
 }
 
