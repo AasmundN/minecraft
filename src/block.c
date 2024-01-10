@@ -1,9 +1,10 @@
 #include "block.h"
+#include "app.h"
 #include "matrix.h"
 
 #include <SDL.h>
 
-void getFaces(Block *block, Face *faces) {
+void getFaces(struct Block *block, Face *faces) {
   /*
    * FRONT_FACE face
    */
@@ -136,7 +137,7 @@ void drawWireFrame(SDL_Renderer *renderer, SDL_Vertex vertices[4]) {
   SDL_RenderDrawLine(renderer, vertices[3].position.x, vertices[3].position.y, vertices[0].position.x, vertices[0].position.y);
 }
 
-void renderFace(App *app, Face *face, int index) {
+void renderFace(struct App *app, Face *face, int index) {
   SDL_Vertex verticesProjected[4];
   Vector3d vertices[4];
 
@@ -202,7 +203,7 @@ void renderFace(App *app, Face *face, int index) {
   // drawWireFrame(app->renderer, verticesProjected);
 }
 
-void renderBlock(App *app, Block *block) {
+void renderBlock(struct App *app, struct Block *block) {
   Face *faces = malloc(6 * sizeof(Face));
   getFaces(block, faces);
 

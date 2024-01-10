@@ -1,7 +1,7 @@
 #ifndef BLOCK_H
 #define BLOCK_H
 
-#include "app.h"
+struct App;
 
 /*
  * Dimension of one block
@@ -54,20 +54,18 @@ typedef struct {
 /*
  * Block struct
  */
-typedef struct {
+struct Block {
   Block_t type;
   Vector3d pos;
-} Block;
+};
 
 /*
  * Find faces, and their vertices, of a cube
  * block: block to be calculated
  * faces: pointer to array where the faces are to be stored
  */
-void getFaces(Block *block, Face *faces);
+void getFaces(struct Block *block, Face *faces);
 
-/*
- * */
-void renderBlock(App *app, Block *block);
+void renderBlock(struct App *app, struct Block *block);
 
 #endif

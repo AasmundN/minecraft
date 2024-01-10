@@ -3,6 +3,8 @@
 
 #include <stdbool.h>
 
+struct Block;
+
 #define MOVE_SPEED 1
 
 /*
@@ -38,51 +40,55 @@ typedef enum {
 /*
  * Player struct
  */
-typedef struct {
+struct Player {
   Orientation orientation;
   bool movementDirections[6];
   float x, y, z;
-} Player;
+};
 
-typedef struct {
+struct App {
   struct SDL_Renderer *renderer;
   struct SDL_Window *window;
   State state;
   int width, height;
-  Player player;
-} App;
+  struct Block *blocks;
+  int numBlocks;
+  struct Player player;
+};
 
 /*
- * Init SDL window and renderer
- * app: struct containing renderer and window pointers
- * width: width of window
- * height: height of window
+ * Init application struct with specified window width and height
  */
-void initSDL(App *app, int width, int height);
+struct App *initApp(int width, int height);
 
 /*
- * Cleanup resources from SDL
+ *Free app resources
  */
-void cleanup(App *app);
+void destroyApp(struct App *app);
+
+/*
+ * Add block to app block list
+ */
+void addBlock(struct App *app, struct Block *block);
 
 /*
  * Handle SDL events
  */
-void handleEvents(App *app);
+void handleEvents(struct App *app);
 
 /*
  * Clear renderer
  */
-void clearFrame(App *app);
+void clearFrame(struct App *app);
 
 /*
  * Move player
  */
-void movePlayer(App *app);
+void movePlayer(struct App *app);
 
 /*
  * Draw new frame
  */
-void drawFrame(App *app);
+void drawFrame(struct App *app);
 
 #endif

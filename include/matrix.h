@@ -1,6 +1,7 @@
 #ifndef MATRIX_H
 #define MATRIX_H
 
+#include "app.h"
 #include "block.h"
 
 float degreesToRad(float degrees);

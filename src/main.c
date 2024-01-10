@@ -12,28 +12,32 @@ int main(int argc, char *argv[]) {
   /*
    * Create app instance
    */
-  App app = {NULL, NULL, RUNNING, WINDOW_WIDTH, WINDOW_HEIGHT};
+  struct App *app = initApp(WINDOW_WIDTH, WINDOW_HEIGHT);
 
-  initSDL(&app, WINDOW_WIDTH, WINDOW_HEIGHT);
+  struct Block block = {GRASS, {0, 0, 0}};
+  struct Block block2 = {GRASS, {1, 1, 0}};
+
+  addBlock(app, &block);
+  addBlock(app, &block2);
 
   /*
    * App loop
    */
-  while (app.state == RUNNING) {
+  while (app->state == RUNNING) {
     float frameStart = SDL_GetTicks();
 
-    SDL_GetWindowSize(app.window, &app.width, &app.height);
+    SDL_GetWindowSize(app->window, &app->width, &app->height);
 
-    app.player.orientation.angleX += 1;
-    app.player.orientation.angleY += 2;
+    app->player.orientation.angleX += 1;
+    app->player.orientation.angleY += 2;
 
-    handleEvents(&app);
+    handleEvents(app);
 
-    clearFrame(&app);
+    clearFrame(app);
 
-    movePlayer(&app);
+    movePlayer(app);
 
-    drawFrame(&app);
+    drawFrame(app);
 
     // wait for next frame
     float frameTime = SDL_GetTicks() - frameStart;
@@ -42,7 +46,7 @@ int main(int argc, char *argv[]) {
     }
   }
 
-  cleanup(&app);
+  destroyApp(app);
 
   return 0;
 }

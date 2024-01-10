@@ -8,7 +8,7 @@
  */
 char color[][8] = {"#aa0bff", "#000000"};
 
-void setRenderColor(App *app, const char *color) {
+void setRenderColor(struct App *app, const char *color) {
   char r[3];
   char g[3];
   char b[3];

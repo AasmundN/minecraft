@@ -8,20 +8,41 @@
 #include <stdbool.h>
 #include <stdio.h>
 
-void initSDL(App *app, int width, int height) {
+/*
+ * Init SDL window and renderer
+ * app: struct containing renderer and window pointers
+ * width: width of window
+ * height: height of window
+ */
+void initSDL(struct App *app) {
   if (SDL_Init(SDL_INIT_VIDEO) < 0) {
     printf("Could not initialize SDL: %s\n", SDL_GetError());
     exit(1);
   }
 
-  SDL_CreateWindowAndRenderer(width, height, SDL_WINDOW_RESIZABLE, &app->window, &app->renderer);
+  SDL_CreateWindowAndRenderer(app->width, app->height, SDL_WINDOW_RESIZABLE, &app->window, &app->renderer);
 
   SDL_SetWindowTitle(app->window, "Voxel engine");
 
   // SDL_SetRelativeMouseMode(SDL_TRUE);
 }
 
-void cleanup(App *app) {
+struct App *initApp(int width, int height) {
+  struct App *app = malloc(sizeof(struct App));
+
+  app->blocks = malloc(0);
+  app->numBlocks = 0;
+
+  app->state = RUNNING;
+  app->width = width;
+  app->height = height;
+
+  initSDL(app);
+
+  return app;
+}
+
+void destroyApp(struct App *app) {
   if (app->renderer != NULL) {
     SDL_DestroyRenderer(app->renderer);
   }
@@ -31,6 +52,9 @@ void cleanup(App *app) {
   }
 
   SDL_Quit();
+
+  free(app->blocks);
+  free(app);
 }
 
 void toggleRelativeMouseMode() {
@@ -38,7 +62,7 @@ void toggleRelativeMouseMode() {
   SDL_SetRelativeMouseMode(!state);
 }
 
-void handleKeyDown(App *app, SDL_KeyboardEvent *event) {
+void handleKeyDown(struct App *app, SDL_KeyboardEvent *event) {
   switch (event->keysym.sym) {
   case SDLK_w:
     app->player.movementDirections[FORWARD] = true;
@@ -66,7 +90,7 @@ void handleKeyDown(App *app, SDL_KeyboardEvent *event) {
   }
 }
 
-void handleKeyUp(App *app, SDL_KeyboardEvent *event) {
+void handleKeyUp(struct App *app, SDL_KeyboardEvent *event) {
   switch (event->keysym.sym) {
   case SDLK_w:
     app->player.movementDirections[FORWARD] = false;
@@ -86,12 +110,12 @@ void handleKeyUp(App *app, SDL_KeyboardEvent *event) {
   }
 }
 
-void handleMouseMotion(App *app, SDL_MouseMotionEvent *event) {
+void handleMouseMotion(struct App *app, SDL_MouseMotionEvent *event) {
   app->player.orientation.angleX += event->yrel / 3;
   app->player.orientation.angleY -= event->xrel / 3;
 }
 
-void handleEvents(App *app) {
+void handleEvents(struct App *app) {
   SDL_Event event;
 
   while (SDL_PollEvent(&event)) {
@@ -114,26 +138,37 @@ void handleEvents(App *app) {
   }
 }
 
-void clearFrame(App *app) {
+void clearFrame(struct App *app) {
   setRenderColor(app, color[RED]);
   SDL_RenderClear(app->renderer);
 }
 
-void moveForward(Player *player) {
+void moveForward(struct Player *player) {
   const float angleRad = degreesToRad(player->orientation.angleY);
   player->x -= MOVE_SPEED * sin(angleRad);
   player->z -= MOVE_SPEED * cos(angleRad);
 }
 
-void movePlayer(App *app) {
+void movePlayer(struct App *app) {
   if (app->player.movementDirections[FORWARD]) app->player.z -= MOVE_SPEED;
   if (app->player.movementDirections[BACKWARD]) app->player.z += MOVE_SPEED;
 }
 
-void drawFrame(App *app) {
-  // some temporary blocks for demonstration
-  Block block = {GRASS, {0, 1, 0}};
-  renderBlock(app, &block);
+void drawFrame(struct App *app) {
+  for (int i = 0; i < app->numBlocks; i++)
+    renderBlock(app, &app->blocks[i]);
 
   SDL_RenderPresent(app->renderer);
+}
+
+void addBlock(struct App *app, struct Block *block) {
+  app->blocks = realloc(app->blocks, (app->numBlocks + 1) * sizeof(struct Block));
+
+  app->blocks[app->numBlocks].pos.x = block->pos.x;
+  app->blocks[app->numBlocks].pos.y = block->pos.y;
+  app->blocks[app->numBlocks].pos.z = block->pos.z;
+
+  app->blocks[app->numBlocks].type = block->type;
+
+  app->numBlocks++;
 }

@@ -19,6 +19,6 @@ typedef enum {
 /*
  * Set renderer draw color using hex string
  */
-void setRenderColor(App *app, const char *color);
+void setRenderColor(struct App *app, const char *color);
 
 #endif
