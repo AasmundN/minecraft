@@ -65,7 +65,7 @@ struct App {
 struct App *initApp(int width, int height);
 
 /*
- *Free app resources
+ * Free app resources
  */
 void destroyApp(struct App *app);
 

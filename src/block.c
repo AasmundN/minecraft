@@ -138,7 +138,7 @@ void drawWireFrame(SDL_Renderer *renderer, SDL_Vertex vertices[4]) {
 }
 
 /*
- * Add quad (face) to a list of quads
+ * Add quad (face) to a list of quads in the given frame
  */
 void addQuad(Frame *frame, Face *quad) {
   frame->quads = realloc(frame->quads, (frame->numQuads + 1) * sizeof(Face));

@@ -22,7 +22,7 @@ void perspectiveTransform(Vector3d *input, Vector3d *output, int width, int heig
 void rotateVector(Vector3d *input, Vector3d *output, Orientation *orientation);
 
 /*
- *Calculate cross product
+ * Calculate cross product
  * a: first opearand
  * b: second operand
  * output: resulting vector
