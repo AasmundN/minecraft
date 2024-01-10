@@ -6,7 +6,7 @@
 
 #define WINDOW_WIDTH 1280
 #define WINDOW_HEIGHT 720
-#define FPS 30
+#define FPS 60
 
 int main(int argc, char *argv[]) {
   /*
@@ -15,10 +15,10 @@ int main(int argc, char *argv[]) {
   struct App *app = initApp(WINDOW_WIDTH, WINDOW_HEIGHT);
 
   struct Block block = {GRASS, {0, 0, 0}};
-  struct Block block2 = {GRASS, {1, 1, 0}};
+  // struct Block block2 = {GRASS, {1, 1, 0}};
 
   addBlock(app, &block);
-  addBlock(app, &block2);
+  // addBlock(app, &block2);
 
   /*
    * App loop
@@ -37,7 +37,7 @@ int main(int argc, char *argv[]) {
 
     movePlayer(app);
 
-    drawFrame(app);
+    renderFrame(app);
 
     // wait for next frame
     float frameTime = SDL_GetTicks() - frameStart;

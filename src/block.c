@@ -137,9 +137,19 @@ void drawWireFrame(SDL_Renderer *renderer, SDL_Vertex vertices[4]) {
   SDL_RenderDrawLine(renderer, vertices[3].position.x, vertices[3].position.y, vertices[0].position.x, vertices[0].position.y);
 }
 
-void renderFace(struct App *app, Face *face, int index) {
-  SDL_Vertex verticesProjected[4];
-  Vector3d vertices[4];
+/*
+ * Add quad (face) to a list of quads
+ */
+void addQuad(Frame *frame, Face *quad) {
+  frame->quads = realloc(frame->quads, (frame->numQuads + 1) * sizeof(Face));
+
+  memcpy(&frame->quads[frame->numQuads], quad, sizeof(Face));
+
+  frame->numQuads++;
+}
+
+void projectFace(struct App *app, Frame *frame, Face *face, int index) {
+  Face quad;
 
   for (int i = 0; i < 4; i++) {
     // intermediates
@@ -158,40 +168,56 @@ void renderFace(struct App *app, Face *face, int index) {
 
     perspectiveTransform(&rotatedVertex, &projectedVertex, app->width, app->height);
 
-    // temporary set color of face
-    verticesProjected[i].color.r = 80 + 5 * index;
-    verticesProjected[i].color.g = 0;
-    verticesProjected[i].color.b = 0;
-    verticesProjected[i].color.a = 0xff;
-
-    /*
-     * Scale projected vertex to screen
-     */
-    projectedVertex.x += 1;
-    projectedVertex.y += 1;
-    projectedVertex.x *= 0.5 * app->width;
-    projectedVertex.y *= 0.5 * app->height;
-
-    verticesProjected[i].position.x = projectedVertex.x;
-    verticesProjected[i].position.y = projectedVertex.y;
-
-    /*
-     * Save 3d vertices
-     */
-    duplicateVector(&rotatedVertex, &vertices[i]);
+    duplicateVector(&projectedVertex, &quad.vertices[i]);
   }
 
   Vector3d a, b, faceNormal;
 
-  vectorSubtract(&vertices[1], &vertices[0], &a);
-  vectorSubtract(&vertices[3], &vertices[0], &b);
+  vectorSubtract(&quad.vertices[1], &quad.vertices[0], &a);
+  vectorSubtract(&quad.vertices[3], &quad.vertices[0], &b);
 
   vectorCrossProduct(&a, &b, &faceNormal);
 
   /*
    * Only render faces we can actually see
    */
-  if (vectorDotProduct(&faceNormal, &vertices[0]) > 0) return;
+  if (vectorDotProduct(&faceNormal, &quad.vertices[0]) > 0) return;
+
+  addQuad(frame, &quad);
+}
+
+void projectBlock(struct App *app, Frame *frame, struct Block *block) {
+  Face *faces = malloc(6 * sizeof(Face));
+  getFaces(block, faces);
+
+  for (int i = 0; i < 6; i++)
+    projectFace(app, frame, faces + i, i);
+
+  free(faces);
+}
+
+void renderQuad(struct App *app, Face *quad) {
+  SDL_Vertex vertices[4];
+
+  for (int i = 0; i < 4; i++) {
+
+    // temporary set color of face
+    vertices[i].color.r = 0x55;
+    vertices[i].color.g = 0x00;
+    vertices[i].color.b = 0x00;
+    vertices[i].color.a = 0xff;
+
+    vertices[i].position.x = quad->vertices[i].x;
+    vertices[i].position.y = quad->vertices[i].y;
+
+    /*
+     * Scale projected vertex to screen
+     */
+    vertices[i].position.x += 1;
+    vertices[i].position.y += 1;
+    vertices[i].position.x *= 0.5 * app->width;
+    vertices[i].position.y *= 0.5 * app->height;
+  }
 
   /*
    * Vertex rendering order
@@ -199,16 +225,22 @@ void renderFace(struct App *app, Face *face, int index) {
    */
   const int indices[] = {0, 1, 3, 3, 1, 2};
 
-  SDL_RenderGeometry(app->renderer, NULL, verticesProjected, 4, indices, 6);
-  // drawWireFrame(app->renderer, verticesProjected);
+  // SDL_RenderGeometry(app->renderer, NULL, vertices, 4, indices, 6);
+  drawWireFrame(app->renderer, vertices);
 }
 
-void renderBlock(struct App *app, struct Block *block) {
-  Face *faces = malloc(6 * sizeof(Face));
-  getFaces(block, faces);
+void drawFrame(struct App *app) {
+  Frame *frame = malloc(sizeof(Frame));
 
-  for (int i = 0; i < 6; i++)
-    renderFace(app, faces + i, i);
+  frame->quads = malloc(0);
+  frame->numQuads = 0;
 
-  free(faces);
+  for (int i = 0; i < app->numBlocks; i++)
+    projectBlock(app, frame, &app->blocks[i]);
+
+  for (int i = 0; i < frame->numQuads; i++)
+    renderQuad(app, &frame->quads[i]);
+
+  free(frame->quads);
+  free(frame);
 }

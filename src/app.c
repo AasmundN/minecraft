@@ -154,15 +154,20 @@ void movePlayer(struct App *app) {
   if (app->player.movementDirections[BACKWARD]) app->player.z += MOVE_SPEED;
 }
 
-void drawFrame(struct App *app) {
-  for (int i = 0; i < app->numBlocks; i++)
-    renderBlock(app, &app->blocks[i]);
+void renderFrame(struct App *app) {
+  /*
+   * Calucalte and draw the frame on the renderer
+   */
+  drawFrame(app);
 
+  /*
+   * Present renderer
+   */
   SDL_RenderPresent(app->renderer);
 }
 
 void addBlock(struct App *app, struct Block *block) {
-  app->blocks = realloc(app->blocks, (app->numBlocks + 1) * sizeof(struct Block));
+  app->blocks = (struct Block *)realloc(app->blocks, (app->numBlocks + 1) * sizeof(struct Block));
 
   app->blocks[app->numBlocks].pos.x = block->pos.x;
   app->blocks[app->numBlocks].pos.y = block->pos.y;

@@ -3,7 +3,7 @@
 
 #include <stdbool.h>
 
-struct Block;
+#include "block.h"
 
 #define MOVE_SPEED 1
 
@@ -49,11 +49,14 @@ struct Player {
 struct App {
   struct SDL_Renderer *renderer;
   struct SDL_Window *window;
-  State state;
   int width, height;
+
+  State state;
+
+  struct Player player;
+
   struct Block *blocks;
   int numBlocks;
-  struct Player player;
 };
 
 /*
@@ -89,6 +92,6 @@ void movePlayer(struct App *app);
 /*
  * Draw new frame
  */
-void drawFrame(struct App *app);
+void renderFrame(struct App *app);
 
 #endif

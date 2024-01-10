@@ -60,12 +60,22 @@ struct Block {
 };
 
 /*
- * Find faces, and their vertices, of a cube
- * block: block to be calculated
- * faces: pointer to array where the faces are to be stored
+ * A frame consists of all the (projected) quads that are to be drawn on the screen
  */
-void getFaces(struct Block *block, Face *faces);
+typedef struct {
+  Face *quads;
+  int numQuads;
+} Frame;
 
-void renderBlock(struct App *app, struct Block *block);
+/*
+ * Finds the faces of a block and projects them onto the screen
+ * frame: destination of the resulting, projected, quads.
+ */
+void projectBlock(struct App *app, Frame *frame, struct Block *block);
+
+/*
+ * Draws a frame to the renderer
+ */
+void drawFrame(struct App *app);
 
 #endif
