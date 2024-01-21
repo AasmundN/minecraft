@@ -11,7 +11,8 @@ struct App;
 /*
  * Axis directions
  */
-typedef enum {
+typedef enum
+{
   x,
   y,
   z
@@ -20,7 +21,8 @@ typedef enum {
 /*
  * Block types
  */
-typedef enum {
+typedef enum
+{
   GRASS,
   AIR
 } Block_t;
@@ -28,7 +30,8 @@ typedef enum {
 /*
  * Face types
  */
-typedef enum {
+typedef enum
+{
   FRONT_FACE,
   RIGHT_FACE,
   BACK_FACE,
@@ -40,21 +43,24 @@ typedef enum {
 /*
  * Vector3d position struct
  */
-typedef struct {
+typedef struct
+{
   float x, y, z;
 } Vector3d;
 
 /*
  *Face of block
  */
-typedef struct {
+typedef struct
+{
   Vector3d vertices[4];
 } Face;
 
 /*
  * Block struct
  */
-struct Block {
+struct Block
+{
   Block_t type;
   Vector3d pos;
 };
@@ -62,7 +68,8 @@ struct Block {
 /*
  * A frame consists of all the (projected) quads that are to be drawn on the screen
  */
-typedef struct {
+typedef struct
+{
   Face *quads;
   int numQuads;
 } Frame;

@@ -16,7 +16,8 @@ struct SDL_Window;
 /*
  * App state enum
  */
-typedef enum {
+typedef enum
+{
   RUNNING,
   STOPPED
 } State;
@@ -24,11 +25,13 @@ typedef enum {
 /*
  * Orientation in three dimenasions
  */
-typedef struct {
+typedef struct
+{
   float angleX, angleY, angleZ;
 } Orientation;
 
-typedef enum {
+typedef enum
+{
   UP,
   DOWN,
   FORWARD,
@@ -40,13 +43,15 @@ typedef enum {
 /*
  * Player struct
  */
-struct Player {
+struct Player
+{
   Orientation orientation;
   bool movementDirections[6];
   float x, y, z;
 };
 
-struct App {
+struct App
+{
   struct SDL_Renderer *renderer;
   struct SDL_Window *window;
   int width, height;

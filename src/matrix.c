@@ -2,14 +2,17 @@
 #include "app.h"
 
 #include <math.h>
+#include <stdio.h>
 
 #define PI 3.14159
 
-float degreesToRad(float degrees) {
+float degreesToRad(float degrees)
+{
   return (PI * degrees) / 180;
 }
 
-void perspectiveTransform(Vector3d *input, Vector3d *output, int width, int height) {
+void perspectiveTransform(Vector3d *input, Vector3d *output, int width, int height)
+{
   /*
    * Define constants
    */
@@ -26,8 +29,8 @@ void perspectiveTransform(Vector3d *input, Vector3d *output, int width, int heig
   const float perspectiveMatrix[4][4] = {
       {aspectRatio * fieldOfView, 0, 0, 0},
       {0, fieldOfView, 0, 0},
-      {0, 0, q, -zNear * q},
-      {0, 0, 1, 0},
+      {0, 0, -q, -zNear * q},
+      {0, 0, -1, 0},
   };
 
   /*
@@ -38,14 +41,16 @@ void perspectiveTransform(Vector3d *input, Vector3d *output, int width, int heig
   output->z = input->z * perspectiveMatrix[2][2] + perspectiveMatrix[2][3];
   const float w = input->z * perspectiveMatrix[3][2];
 
-  if (w != 0) {
+  if (w != 0)
+  {
     output->x /= w;
     output->y /= w;
     output->z /= w;
   }
 }
 
-void rotateX(Vector3d *input, Vector3d *output, float angle) {
+void rotateX(Vector3d *input, Vector3d *output, float angle)
+{
   float angleRad = degreesToRad(angle);
 
   output->x = input->x;
@@ -53,7 +58,8 @@ void rotateX(Vector3d *input, Vector3d *output, float angle) {
   output->z = input->y * sin(angleRad) + input->z * cos(angleRad);
 }
 
-void rotateY(Vector3d *input, Vector3d *output, float angle) {
+void rotateY(Vector3d *input, Vector3d *output, float angle)
+{
   float angleRad = degreesToRad(angle);
 
   output->x = input->x * cos(angleRad) + input->z * sin(angleRad);
@@ -61,7 +67,8 @@ void rotateY(Vector3d *input, Vector3d *output, float angle) {
   output->z = -input->x * sin(angleRad) + input->z * cos(angleRad);
 }
 
-void rotateZ(Vector3d *input, Vector3d *output, float angle) {
+void rotateZ(Vector3d *input, Vector3d *output, float angle)
+{
   float angleRad = degreesToRad(angle);
 
   output->x = input->x * cos(angleRad) - input->y * sin(angleRad);
@@ -69,30 +76,35 @@ void rotateZ(Vector3d *input, Vector3d *output, float angle) {
   output->z = input->z;
 }
 
-void rotateVector(Vector3d *input, Vector3d *output, Orientation *orientation) {
+void rotateVector(Vector3d *input, Vector3d *output, Orientation *orientation)
+{
   Vector3d temp1, temp2;
   rotateX(input, &temp1, orientation->angleX);
   rotateY(&temp1, &temp2, orientation->angleY);
   rotateZ(&temp2, output, orientation->angleZ);
 }
 
-void vectorCrossProduct(Vector3d *a, Vector3d *b, Vector3d *output) {
+void vectorCrossProduct(Vector3d *a, Vector3d *b, Vector3d *output)
+{
   output->x = a->y * b->z - a->z * b->y;
   output->y = a->z * b->x - a->x * b->z;
   output->z = a->x * b->y - a->y * b->x;
 }
 
-float vectorDotProduct(Vector3d *a, Vector3d *b) {
+float vectorDotProduct(Vector3d *a, Vector3d *b)
+{
   return a->x * b->x + a->y * b->y + a->z * b->z;
 }
 
-void vectorSubtract(Vector3d *a, Vector3d *b, Vector3d *output) {
+void vectorSubtract(Vector3d *a, Vector3d *b, Vector3d *output)
+{
   output->x = b->x - a->x;
   output->y = b->y - a->y;
   output->z = b->z - a->z;
 }
 
-void duplicateVector(Vector3d *a, Vector3d *output) {
+void duplicateVector(Vector3d *a, Vector3d *output)
+{
   output->x = a->x;
   output->y = a->y;
   output->z = a->z;

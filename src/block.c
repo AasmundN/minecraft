@@ -1,10 +1,12 @@
 #include "block.h"
 #include "app.h"
 #include "matrix.h"
+#include "sort.h"
 
 #include <SDL.h>
 
-void getFaces(struct Block *block, Face *faces) {
+void getFaces(struct Block *block, Face *faces)
+{
   /*
    * FRONT_FACE face
    */
@@ -129,7 +131,8 @@ void getFaces(struct Block *block, Face *faces) {
 /*
  * Draw wire frame outline of a cube face
  */
-void drawWireFrame(SDL_Renderer *renderer, SDL_Vertex vertices[4]) {
+void drawWireFrame(SDL_Renderer *renderer, SDL_Vertex vertices[4])
+{
   SDL_SetRenderDrawColor(renderer, 0xff, 0xff, 0xff, 0xff);
   SDL_RenderDrawLine(renderer, vertices[0].position.x, vertices[0].position.y, vertices[1].position.x, vertices[1].position.y);
   SDL_RenderDrawLine(renderer, vertices[1].position.x, vertices[1].position.y, vertices[2].position.x, vertices[2].position.y);
@@ -140,7 +143,8 @@ void drawWireFrame(SDL_Renderer *renderer, SDL_Vertex vertices[4]) {
 /*
  * Add quad (face) to a list of quads in the given frame
  */
-void addQuad(Frame *frame, Face *quad) {
+void addQuad(Frame *frame, Face *quad)
+{
   frame->quads = realloc(frame->quads, (frame->numQuads + 1) * sizeof(Face));
 
   memcpy(&frame->quads[frame->numQuads], quad, sizeof(Face));
@@ -148,10 +152,12 @@ void addQuad(Frame *frame, Face *quad) {
   frame->numQuads++;
 }
 
-void projectFace(struct App *app, Frame *frame, Face *face, int index) {
+void projectFace(struct App *app, Frame *frame, Face *face, int index)
+{
   Face quad;
 
-  for (int i = 0; i < 4; i++) {
+  for (int i = 0; i < 4; i++)
+  {
     // intermediates
     Vector3d rotatedVertex, translatedVertex, projectedVertex;
 
@@ -164,7 +170,7 @@ void projectFace(struct App *app, Frame *frame, Face *face, int index) {
     rotateVector(&translatedVertex, &rotatedVertex, &app->player.orientation);
 
     // temporary translate
-    rotatedVertex.z += 150;
+    rotatedVertex.z += 250;
 
     perspectiveTransform(&rotatedVertex, &projectedVertex, app->width, app->height);
 
@@ -186,7 +192,8 @@ void projectFace(struct App *app, Frame *frame, Face *face, int index) {
   addQuad(frame, &quad);
 }
 
-void projectBlock(struct App *app, Frame *frame, struct Block *block) {
+void projectBlock(struct App *app, Frame *frame, struct Block *block)
+{
   Face *faces = malloc(6 * sizeof(Face));
   getFaces(block, faces);
 
@@ -196,13 +203,15 @@ void projectBlock(struct App *app, Frame *frame, struct Block *block) {
   free(faces);
 }
 
-void renderQuad(struct App *app, Face *quad) {
+void renderQuad(struct App *app, Face *quad)
+{
   SDL_Vertex vertices[4];
 
-  for (int i = 0; i < 4; i++) {
+  for (int i = 0; i < 4; i++)
+  {
 
     // temporary set color of face
-    vertices[i].color.r = 0x55;
+    vertices[i].color.r = 0xaa;
     vertices[i].color.g = 0x00;
     vertices[i].color.b = 0x00;
     vertices[i].color.a = 0xff;
@@ -225,19 +234,31 @@ void renderQuad(struct App *app, Face *quad) {
    */
   const int indices[] = {0, 1, 3, 3, 1, 2};
 
-  // SDL_RenderGeometry(app->renderer, NULL, vertices, 4, indices, 6);
+  SDL_RenderGeometry(app->renderer, NULL, vertices, 4, indices, 6);
   drawWireFrame(app->renderer, vertices);
 }
 
-void drawFrame(struct App *app) {
+void drawFrame(struct App *app)
+{
   Frame *frame = malloc(sizeof(Frame));
 
   frame->quads = malloc(0);
   frame->numQuads = 0;
 
+  /*
+   * Find quads to draw
+   */
   for (int i = 0; i < app->numBlocks; i++)
     projectBlock(app, frame, &app->blocks[i]);
 
+  /*
+   * Sort quads by z value
+   */
+  mergeSort(frame->quads, 0, frame->numQuads - 1);
+
+  /*
+   * Draw quads to renderer
+   */
   for (int i = 0; i < frame->numQuads; i++)
     renderQuad(app, &frame->quads[i]);
 

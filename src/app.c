@@ -14,8 +14,10 @@
  * width: width of window
  * height: height of window
  */
-void initSDL(struct App *app) {
-  if (SDL_Init(SDL_INIT_VIDEO) < 0) {
+void initSDL(struct App *app)
+{
+  if (SDL_Init(SDL_INIT_VIDEO) < 0)
+  {
     printf("Could not initialize SDL: %s\n", SDL_GetError());
     exit(1);
   }
@@ -27,7 +29,8 @@ void initSDL(struct App *app) {
   // SDL_SetRelativeMouseMode(SDL_TRUE);
 }
 
-struct App *initApp(int width, int height) {
+struct App *initApp(int width, int height)
+{
   struct App *app = malloc(sizeof(struct App));
 
   app->blocks = malloc(0);
@@ -42,12 +45,15 @@ struct App *initApp(int width, int height) {
   return app;
 }
 
-void destroyApp(struct App *app) {
-  if (app->renderer != NULL) {
+void destroyApp(struct App *app)
+{
+  if (app->renderer != NULL)
+  {
     SDL_DestroyRenderer(app->renderer);
   }
 
-  if (app->window != NULL) {
+  if (app->window != NULL)
+  {
     SDL_DestroyWindow(app->window);
   }
 
@@ -57,13 +63,16 @@ void destroyApp(struct App *app) {
   free(app);
 }
 
-void toggleRelativeMouseMode() {
+void toggleRelativeMouseMode()
+{
   SDL_bool state = SDL_GetRelativeMouseMode();
   SDL_SetRelativeMouseMode(!state);
 }
 
-void handleKeyDown(struct App *app, SDL_KeyboardEvent *event) {
-  switch (event->keysym.sym) {
+void handleKeyDown(struct App *app, SDL_KeyboardEvent *event)
+{
+  switch (event->keysym.sym)
+  {
   case SDLK_w:
     app->player.movementDirections[FORWARD] = true;
     break;
@@ -90,8 +99,10 @@ void handleKeyDown(struct App *app, SDL_KeyboardEvent *event) {
   }
 }
 
-void handleKeyUp(struct App *app, SDL_KeyboardEvent *event) {
-  switch (event->keysym.sym) {
+void handleKeyUp(struct App *app, SDL_KeyboardEvent *event)
+{
+  switch (event->keysym.sym)
+  {
   case SDLK_w:
     app->player.movementDirections[FORWARD] = false;
     break;
@@ -110,16 +121,20 @@ void handleKeyUp(struct App *app, SDL_KeyboardEvent *event) {
   }
 }
 
-void handleMouseMotion(struct App *app, SDL_MouseMotionEvent *event) {
+void handleMouseMotion(struct App *app, SDL_MouseMotionEvent *event)
+{
   app->player.orientation.angleX += event->yrel / 3;
   app->player.orientation.angleY -= event->xrel / 3;
 }
 
-void handleEvents(struct App *app) {
+void handleEvents(struct App *app)
+{
   SDL_Event event;
 
-  while (SDL_PollEvent(&event)) {
-    switch (event.type) {
+  while (SDL_PollEvent(&event))
+  {
+    switch (event.type)
+    {
     case SDL_QUIT:
       app->state = STOPPED;
       break;
@@ -138,23 +153,27 @@ void handleEvents(struct App *app) {
   }
 }
 
-void clearFrame(struct App *app) {
+void clearFrame(struct App *app)
+{
   setRenderColor(app, color[RED]);
   SDL_RenderClear(app->renderer);
 }
 
-void moveForward(struct Player *player) {
+void moveForward(struct Player *player)
+{
   const float angleRad = degreesToRad(player->orientation.angleY);
   player->x -= MOVE_SPEED * sin(angleRad);
   player->z -= MOVE_SPEED * cos(angleRad);
 }
 
-void movePlayer(struct App *app) {
+void movePlayer(struct App *app)
+{
   if (app->player.movementDirections[FORWARD]) app->player.z -= MOVE_SPEED;
   if (app->player.movementDirections[BACKWARD]) app->player.z += MOVE_SPEED;
 }
 
-void renderFrame(struct App *app) {
+void renderFrame(struct App *app)
+{
   /*
    * Calucalte and draw the frame on the renderer
    */
@@ -166,7 +185,8 @@ void renderFrame(struct App *app) {
   SDL_RenderPresent(app->renderer);
 }
 
-void addBlock(struct App *app, struct Block *block) {
+void addBlock(struct App *app, struct Block *block)
+{
   app->blocks = (struct Block *)realloc(app->blocks, (app->numBlocks + 1) * sizeof(struct Block));
 
   app->blocks[app->numBlocks].pos.x = block->pos.x;

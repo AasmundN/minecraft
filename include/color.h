@@ -11,7 +11,8 @@ extern char color[][8];
 /*
  * Color names
  */
-typedef enum {
+typedef enum
+{
   RED,
   BLACK
 } Color;
